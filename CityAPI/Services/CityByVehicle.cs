@@ -23,17 +23,15 @@ namespace CityAPI.Services
             }
             city.id = Guid.NewGuid(); // only if we not work in dto
             _connectionToDB.cities.Add(city);
-            _connectionToDB.SaveChanges();
             city_Dto.id = city.id;
             city_Dto.name = city.name;
             city_Dto.population = city.population;
-            var ListMin =_connectionToDB.vehicles.Where(p => p.min_population >= city.population).ToList();
-            var maxList =  ListMin.Where(p => p.max_population >= city.population).ToList();
+            var List = _connectionToDB.vehicles.Where(p => p.min_population > city.population || p.max_population < city.population).Select(s => s.vehicle);
             
-
+            _connectionToDB.city_Dtos.Add(city_Dto);
+           _connectionToDB.SaveChanges();
             return city_Dto;
         }
-
         public List<City_dto> GetCityDtoRandom()
         {
             Random rnd = new Random();

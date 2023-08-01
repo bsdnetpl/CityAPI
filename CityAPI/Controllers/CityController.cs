@@ -16,10 +16,22 @@ namespace CityAPI.Controllers
             _cityByVehicle = cityByVehicle;
         }
 
-        //[HttpGet("Get_city_dto")]
-        //[HttpGet("Get_city_dto_random")]
+        [HttpGet("Get_city_dto")]
+        public ActionResult <List<City_dto>> GetCityDto(City_dto city_Dto)
+        {
+            return Ok(_cityByVehicle.GetCityDto(city_Dto));
+        }
+        [HttpGet("Get_city_dto_random")]
+        public ActionResult<List<City_dto>> GetCityDtoRandom()
+        {
+         return Ok(_cityByVehicle.GetCityDtoRandom());
+        }
         //[HttpGet("Get_city_dto_vehicle")]
-        //[HttpPost("Add_city")]
+        [HttpPost("Add_city")]
+        public ActionResult<City_dto> AddCity(City city)
+        {
+            return _cityByVehicle.AddCity(city);
+        }
         [HttpPost("Add_Vehicle_per_population")]
         public ActionResult <bool> AddVehicle(Vehicle vehicle)
         {
