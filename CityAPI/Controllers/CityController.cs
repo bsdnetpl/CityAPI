@@ -26,7 +26,11 @@ namespace CityAPI.Controllers
         {
          return Ok(_cityByVehicle.GetCityDtoRandom());
         }
-        //[HttpGet("Get_city_dto_vehicle")]
+        [HttpGet("Get_city_dto_vehicle")]
+        public ActionResult <List<City_dto>> GetCityDtoVehicle(Vehicle vehicle)
+            {
+            return Ok(_cityByVehicle.GetCityDtoVehicle(vehicle));
+            }
         [HttpPost("Add_city")]
         public ActionResult<City_dto> AddCity(City city)
         {

@@ -1,5 +1,6 @@
 ﻿using CityAPI.DB;
 using CityAPI.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
 namespace CityAPI.Services
@@ -26,8 +27,8 @@ namespace CityAPI.Services
             city_Dto.id = city.id;
             city_Dto.name = city.name;
             city_Dto.population = city.population;
-            var List = _connectionToDB.vehicles.Where(p => p.min_population > city.population || p.max_population < city.population).Select(s => s.vehicle);
-            
+            var List = _connectionToDB.vehicles.Where(p => p.min_population < city.population && p.max_population < city.population).Select(s => s.vehicle).First();
+            city_Dto.common_vehicle = List;
             _connectionToDB.city_Dtos.Add(city_Dto);
            _connectionToDB.SaveChanges();
             return city_Dto;
